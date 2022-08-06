@@ -1,0 +1,2 @@
+pyserial~=3.5
+pyjoystick~=1.2.4
