@@ -1,14 +1,16 @@
-import serial
+#import serial
 import re
-
+import pyb
 
 class Dexarm:
 
     def __init__(self, port):
-        self.ser = serial.Serial(port, 115200, timeout=None)
-        self.is_open = self.ser.isOpen()
+        #self.ser = serial.Serial(port, 115200, timeout=None)
+        #self.is_open = self.ser.isOpen()
+        self.ser = pyb.USB_VCP()
+        self.is_open = self.ser.isconnected()
         if self.is_open:
-            print('pydexarm: %s open' % self.ser.name)
+            print('pydexarm: %s open' % 0)
         else:
             print('Failed to open serial port')
 
@@ -139,3 +141,30 @@ class Dexarm:
 
     def conveyor_belt_stop(self, speed=0):
         self._send_cmd("M2013\r")
+
+
+if __name__ == '__main__':
+    import sys
+    if "_machine" in dir(sys.implementation) and sys.implementation._machine.contains("Pico"):
+        print(sys.implementation._machine)
+        dexarm = Dexarm(0)
+    elif sys.platform.startswith("win") or sys.platform.startswith("cygwin"):  # Load the arm on Windows
+        dexarm = Dexarm("COM8")
+    else:  # Load the arm on Mac or Linux
+        dexarm = Dexarm("/dev/tty.usbmodem3086337A34381")
+
+    dexarm.go_home()
+
+    dexarm.move_to(50, 300, 0)
+
+
+    dexarm.move_to(50, 300, -50)
+    dexarm.air_picker_pick()
+    dexarm.move_to(50, 300, 0)
+    dexarm.move_to(-50, 300, 0)
+    dexarm.move_to(-50, 300, -50)
+    dexarm.air_picker_place()
+
+
+    dexarm.go_home()
+    dexarm.air_picker_stop()
