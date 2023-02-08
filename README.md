@@ -16,3 +16,9 @@ Left, Right, Up, Down, Grabber, and Coin
 
 Use crontab to build an auto-run script. 
 See https://www.dexterindustries.com/howto/auto-run-python-programs-on-the-raspberry-pi/
+
+Libraries needed for Raspberry Pi version:
+pydexarm.py  (locate in same directory as ClawGrabber.py)
+install pip library with: sudo apt install python3-piop
+install serial library with: sudo pip3 install pyserial
+make executable with: chmod +x ClawGrabber.py
