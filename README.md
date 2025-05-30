@@ -1,4 +1,10 @@
 # ClawMachine
+![Pandas playing Claw Machine](https://github.com/user-attachments/assets/33424587-ca2d-4be4-841d-025a88052999)
+We use a DexArm 3-axis arm with a joystick (binary switches in 4 directions plus a center "fire" button), and an additional switch to detect a coin inserted.
+
+The program allows the arm to initialize when a coin is inserted.  The player then has 30 seconds to move the arm in a constrained space and try to position over some target object.
+When the player hits the "fire" button, the arm lowers ~3cm and engages the suction pump to try to pick up an object.  Whether it connects with an object or not, the arm then moves to the prize shoot, releases the vacuum suction holding the prize, pauses, then returns to the home position to await the next player (coin activation).
+
 Notes on configuring Claw Machine for running on a Raspberry Pi 3 board
 Build a Pi 3 with full visual editor and wifi connection 
 
